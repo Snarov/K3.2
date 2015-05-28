@@ -1,22 +1,28 @@
+<%@page import="java.util.List"%>
+<%@page import="model.Model"%>
+<%@page import="model.DB.ColorPrices"%>
 <!DOCTYPE HTML>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="/WEB-INF/tlds/pstags" prefix="ps"%>
 <html>
 	<head>
-		<title>Iridium by TEMPLATED</title>
+		<title>Pay & Spray</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<link href='http://fonts.googleapis.com/css?family=Arimo:400,700' rel='stylesheet' type='text/css'>
-		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<link href="css/admin-forms.css" media="screen" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+		<script type="text/javascript" src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
+		<script type="text/javascript" src="js/jquery.uniform.min.js"></script>
+		<script type="text/javascript" src="js/adminForms.js"></script>
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-panels.min.js"></script>
 		<script src="js/init.js"></script>
 		<noscript>
-			<link rel="stylesheet" href="css/skel-noscript.css" />
-			<link rel="stylesheet" href="css/style.css" />
-			<link rel="stylesheet" href="css/style-desktop.css" />
+		<link rel="stylesheet" href="css/skel-noscript.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/style-desktop.css" />
 		</noscript>
 		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
@@ -25,156 +31,201 @@
 
 		<!-- Header -->
 		<ps:header>${username}</ps:header>
-		<div id="header">
-			<div class="container"> 
-				
-				<!-- Logo -->
-				<div id="logo">
-					<h1><a href="garage.html">Pay & Spray</a></h1>
+			<div id="header">
+				<div class="container"> 
+
+					<!-- Logo -->
+					<div id="logo">
+						<h1><a href="garage.html">Pay & Spray</a></h1>
+					</div>
+
+					<!-- Nav -->
+					<nav id="nav">
+						<ul>
+							<li ><a href="index.jsp">Главная</a></li>
+							<li><a href="wallet.jsp">Мой кошелек</a></li>
+							<li  class="active"><a href="admin.jsp">Администрирование</a></li>
+						</ul>
+					</nav>
 				</div>
-				
-				<!-- Nav -->
-				<nav id="nav">
-					<ul>
-						<li ><a href="index.jsp">Главная</a></li>
-						<li><a href="wallet.jsp">Мой кошелек</a></li>
-						<li  class="active"><a href="admin.jsp">Администрирование</a></li>
-					</ul>
-				</nav>
 			</div>
-		</div>
 
-		<!-- Main -->
-		<div id="main">
-			<div class="container">
-				<div class="row"> 
+			<!-- Main -->
+			<div id="main">
+				<div class="container">
+					<div class="row"> 
 
-					<!-- Content -->
-					<div id="content" class="8u skel-cell-important">
+						<!-- Content -->
+						<div id="content" class="12u skel-cell-important">
+							<section>
+								<header>
+									<h2 style="text-align: center;">Измение цен на краски</h2>
+								</header>
+								<div align="center" class="TTWForm-container">
+								<%
+									int[] colorPrices = Model.getColorPrices();
+								%>
+
+
+								<form action="changeColorPrices" class="TTWForm" method="post">
+
+
+									<div id="field1-container" class="field f_100">
+										<label for="field1">
+											Красная краска
+										</label>
+										<input type="number" name="redColor" id="field1" value="<%=colorPrices[0]%>" required pattern="^[ 0-9]+$">
+									</div>
+
+
+									<div id="field3-container" class="field f_100">
+										<label for="field3">
+											Зеленая краска
+										</label>
+										<input type="number" name="greenColor" id="field3" value="<%=colorPrices[1]%>" required pattern="^[ 0-9]+$">
+									</div>
+
+
+									<div id="field2-container" class="field f_100">
+										<label for="field2">
+											Синяя краска
+										</label>
+										<input type="number" name="blueColor" id="field2" value="<%=colorPrices[2]%>" required pattern="^[ 0-9]+$">
+									</div>
+
+
+									<div id="field4-container" class="field f_100">
+										<label for="field4">
+											Черная краска
+										</label>
+										<input type="number" name="blackColor" id="field4"  value="<%=colorPrices[3]%>" required pattern="^[ 0-9]+$">
+									</div>
+
+
+									<div id="form-submit" class="field f_100 clearfix submit">
+										<input type="submit" value="Применить">
+									</div>
+								</form>
+							</div>
+
+						</section>
+					</div>
+
+					<hr width="100%" style="margin-bottom:30px;">
+
+					<script type="text/javascript">
+						var modelPrices = new Array();
+						<% int[] modelPrices = Model.getModelPrices();
+							for (int i = 0; i < modelPrices.length; i++) {
+						%>
+						modelPrices[<%=i%>] = <%=modelPrices[i]%>
+						<%
+									}
+						%>
+							
+						function setPrice(price){
+							document.getElementById("field6").value = modelPrices[price];
+						}
+					</script>
+
+					<div id="content" class="12u skel-cell-important">
 						<section>
 							<header>
-								<h2>Right Sidebar</h2>
-								<span class="byline">Integer sit amet pede vel arcu aliquet pretium</span>
+								<h2 style="text-align: center;">Измение цен на автомобили</h2>
 							</header>
-							<a href="#" class="image full"><img src="images/pic07.jpg" alt="" /></a>
-							<p>Sed etiam vestibulum velit, euismod lacinia quam nisl id lorem. Quisque erat. Vestibulum pellentesque, justo mollis pretium suscipit, justo nulla blandit libero, in blandit augue justo quis nisl. Fusce mattis viverra elit. Fusce quis tortor. Consectetuer adipiscing elit. Nam pede erat, porta eu, lobortis eget lorem ipsum dolor. Sed etiam vestibulum velit, euismod lacinia quam nisl id lorem. Quisque erat. Vestibulum pellentesque, justo mollis pretium suscipit, justo nulla blandit libero, in blandit augue justo quis nisl. Fusce mattis viverra elit. Fusce quis tortor. Consectetuer adipiscing elit. Nam pede erat, porta eu, lobortis eget lorem ipsum dolor.</p>
-							<p>Maecenas pede nisl, elementum eu, ornare ac, malesuada at, erat. Proin gravida orci porttitor enim accumsan lacinia. Donec condimentum, urna non molestie semper, ligula enim ornare nibh, quis laoreet eros quam eget ante. Aliquam libero. Vivamus nisl nibh, iaculis vitae, viverra sit amet, ullamcorper vitae, turpis. Aliquam erat volutpat. Vestibulum dui sem, pulvinar sed, imperdiet nec, iaculis nec, leo. Fusce odio. Etiam arcu dui, faucibus eget, placerat vel, sodales eget, orci. Donec ornare neque ac sem. Mauris aliquet. Aliquam sem leo, vulputate sed, convallis at, ultricies quis, justo. Donec nonummy magna quis risus. Quisque eleifend. Phasellus tempor vehicula justo. Aliquam lacinia metus ut elit.</p>
-							<p>Donec nonummy magna quis risus. Quisque eleifend. Maecenas pede nisl, elementum eu, ornare ac, malesuada at, erat. Proin gravida orci porttitor enim accumsan lacinia. Donec condimentum, urna non molestie semper, ligula enim ornare nibh, quis laoreet eros quam eget ante. Aliquam libero. Vivamus nisl nibh, iaculis vitae, viverra sit amet, ullamcorper vitae, turpis. Aliquam erat volutpat. Vestibulum dui sem, pulvinar sed, imperdiet nec, iaculis nec, leo. Fusce odio. Etiam arcu dui, faucibus eget, placerat vel, sodales eget, orci. Donec ornare neque ac sem. Mauris aliquet. Aliquam sem leo, vulputate sed, convallis at, ultricies quis, justo. Phasellus tempor vehicula justo. Aliquam lacinia metus ut elit.</p>
+							<div align="center" class="TTWForm-container">
+
+
+								<form action="changeModelPrice" class="TTWForm" method="post">
+
+
+									<div id="field5-container" class="field f_100">
+										<label for="field5">
+											Модель
+										</label>
+										<select name="model" id="field5" required="required" onchange="setPrice(this.selectedIndex)">
+											<option id="field5-1" value="Ferrari California">
+												Ferrari California
+											</option>
+											<option id="field5-2" value="Mitsubishi Lancer">
+												Mitsubishi Lamcer
+											</option>
+											<option id="field5-3" value="Audi S3">
+												Audi S3
+											</option>
+											<option name="field5" id="field5-4" value="Mazda 3">
+												Mazda 3
+											</option>
+											<option name="model" id="model-5" value="Chevrolet Camaro">
+												Chevrolet Camaro
+											</option>
+											<option name="model" id="model-6" value="Nissan 350Z">
+												Nissan 350Z
+											</option>
+											<option name="model" id="model-7" value="Mercedes SLR500">
+												Mercedes SLR500
+											</option>
+											<option name="model" id="model-8" value="Aston Martin V8">
+												Aston Martin V8
+											</option>
+										</select>
+									</div>
+
+
+									<div id="field6-container" class="field f_100">
+										<label for="field6">
+											Цена
+										</label>
+										<input type="number" value="<%=modelPrices[0]%>" name="price" id="field6" required="required" min="0">
+									</div>
+
+
+									<div id="form-submit" class="field f_100 clearfix submit">
+										<input type="submit" value="Применить">
+									</div>
+								</form>
+							</div>
+
 						</section>
+
 					</div>
-					
-					<!-- Sidebar -->
-					<div id="sidebar" class="4u">
+
+					<hr width="100%" style="margin-bottom:30px;">
+
+					<div id="content" class="12u skel-cell-important">
 						<section>
 							<header>
-								<h2>Pellentesque vulputate</h2>
+								<h2 style="text-align: center;">Зачисление на счет</h2>
 							</header>
-							<ul class="style">
-								<li>
-									<p class="posted">August 11, 2002  |  (10 )  Comments</p>
-									<img src="images/pic04.jpg" alt="" />
-									<p class="text">Nullam non wisi a sem eleifend. Donec mattis libero eget urna. Pellentesque viverra enim.</p>
-								</li>
-								<li>
-									<p class="posted">August 11, 2002  |  (10 )  Comments</p>
-									<img src="images/pic05.jpg" alt="" />
-									<p class="text">Nullam non wisi a sem eleifend. Donec mattis libero eget urna. Pellentesque viverra enim.</p>
-								</li>
-								<li>
-									<p class="posted">August 11, 2002  |  (10 )  Comments</p>
-									<img src="images/pic06.jpg" alt="" />
-									<p class="text">Nullam non wisi a sem eleifend. Donec mattis libero eget urna. Pellentesque viverra enim.</p>
-								</li>
-								<li>
-									<p class="posted">August 11, 2002  |  (10 )  Comments</p>
-									<img src="images/pic05.jpg" alt="" />
-									<p class="text">Nullam non wisi a sem eleifend. Donec mattis libero eget urna. Pellentesque viverra enim.</p>
-								</li>
-							</ul>
-						</section>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-
-		<!-- Footer -->
-		<div id="featured">
-			<div class="container">
-				<div class="row">
-					<div class="4u">
-						<h2>Aenean elementum facilisis</h2>
-						<a href="#" class="image full"><img src="images/pic01.jpg" alt="" /></a>
-						<p>Nullam non wisi a sem semper eleifend. Donec mattis libero eget urna. Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum. Quisque dictum. Pellentesque viverra vulputate enim.</p>
-						<p><a href="#" class="button">More Details</a></p>
-					</div>
-					<div class="4u">
-						<h2>Fusce ultrices fringilla</h2>
-						<a href="#" class="image full"><img src="images/pic02.jpg" alt="" /></a>
-						<p>Nullam non wisi a sem semper eleifend. Donec mattis libero eget urna. Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum. Quisque dictum. Pellentesque viverra vulputate enim.</p>
-						<p><a href="#" class="button">More Details</a></p>
-					</div>
-					<div class="4u">
-						<h2>Etiam rhoncus volutpat erat</h2>
-						<a href="#" class="image full"><img src="images/pic03.jpg" alt="" /></a>
-						<p>Nullam non wisi a sem semper eleifend. Donec mattis libero eget urna. Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum. Quisque dictum. Pellentesque viverra vulputate enim.</p>
-						<p><a href="#" class="button">More Details</a></p>
-					</div>
-				</div>
-			</div>
-		</div>
+							<div align="center" class="TTWForm-container">
 
 
-		<!-- Footer -->
-		<div id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="4u">
-						<section>
-							<h2>Latest Posts</h2>
-							<ul class="default">
-								<li><a href="#">Pellentesque lectus gravida blandit</a></li>
-								<li><a href="#">Lorem ipsum consectetuer adipiscing</a></li>
-								<li><a href="#">Phasellus nibh pellentesque congue</a></li>
-								<li><a href="#">Cras vitae metus aliquam pharetra</a></li>
-								<li><a href="#">Maecenas vitae orci feugiat eleifend</a></li>
-							</ul>
-						</section>
-					</div>
-					<div class="4u">
-						<section>
-							<h2>Ultrices fringilla</h2>
-							<ul class="default">
-								<li><a href="#">Pellentesque lectus gravida blandit</a></li>
-								<li><a href="#">Lorem ipsum consectetuer adipiscing</a></li>
-								<li><a href="#">Phasellus nibh pellentesque congue</a></li>
-								<li><a href="#">Cras vitae metus aliquam pharetra</a></li>
-								<li><a href="#">Maecenas vitae orci feugiat eleifend</a></li>
-							</ul>
-						</section>
-					</div>
-					<div class="4u">
-						<section>
-							<h2>Aenean elementum</h2>
-							<ul class="default">
-								<li><a href="#">Pellentesque lectus gravida blandit</a></li>
-								<li><a href="#">Lorem ipsum consectetuer adipiscing</a></li>
-								<li><a href="#">Phasellus nibh pellentesque congue</a></li>
-								<li><a href="#">Cras vitae metus aliquam pharetra</a></li>
-								<li><a href="#">Maecenas vitae orci feugiat eleifend</a></li>
-							</ul>
-						</section>
-					</div>
-				</div>
-			</div>
-		</div>
+								<form action="moneyTransfer" class="TTWForm" method="post">
 
-		<!-- Copyright -->
-		<div id="copyright">
-			<div class="container">
-				Design: <a href="http://templated.co">TEMPLATED</a> Images: <a href="http://unsplash.com">Unsplash</a> (<a href="http://unsplash.com/cc0">CC0</a>)
-			</div>
-		</div>
-		
-	</body>
-</html>
+
+									<div id="field7-container" class="field f_100">
+										<label for="field7">
+											Имя пользователя
+										</label>
+										<input type="text" name="username" id="field7" required="required">
+									</div>
+
+
+									<div id="field8-container" class="field f_100">
+										<label for="field8">
+											Зачисляемая сумма
+										</label>
+										<input type="number" name="summ" id="field8" required="required" min="0">
+										<span style="font-size: 1.5em;">${tmsg}</span>
+									</div>
+
+
+									<div id="form-submit" class="field f_100 clearfix submit">
+										<input type="submit" value="Применить">
+									</div>
+								</form>
+							</div>
+					</div>
+
+					</body>
+					</html>

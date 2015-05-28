@@ -1,0 +1,28 @@
+table {
+	border-collapse: collapse;
+}	
+
+table th, table td {
+	padding: .3em;
+	margin: .1em;
+	vertical-align: top;
+	text-shadow: 0 1px 0 #fff;
+}
+
+thead th {
+	border-right: 1px solid #fff;
+}
+
+th {
+	text-align: left;
+	font-weight: bold;
+	color: #000;
+	background: #f3f3f3;
+	background-size: 100% 100%;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#cccccc));
+	background: -webkit-linear-gradient(top, #ffffff, #cccccc);
+	background: -moz-linear-gradient(top, #ffffff, #cccccc);
+	background: -ms-linear-gradient(top, #ffffff, #cccccc);
+	background: -o-linear-gradient(top, #ffffff, #cccccc);
+}
+

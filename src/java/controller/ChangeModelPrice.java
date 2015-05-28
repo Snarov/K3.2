@@ -10,14 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.DB.Users;
 import model.Model;
 
 /**
  *
- * @author Kiskin
+ * @author kiskin
  */
-public class Registration extends HttpServlet {
+public class ChangeModelPrice extends HttpServlet {
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -29,34 +28,17 @@ public class Registration extends HttpServlet {
 	 */
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String username = request.getParameter("username");
-		String userPw = request.getParameter("user-pwd");
-		String userPwRepeat = request.getParameter("user-pwd-repeat");
-
-		HttpSession session = request.getSession();
-
-		if (username.isEmpty() || userPw.isEmpty()) {
-			response.sendRedirect(session.getServletContext().getContextPath());
-		} else if (!userPw.equals(userPwRepeat)) {
-			session.setAttribute("userid", null);
-			session.setAttribute("msgR", "Пароли не совпадают");
-
-		} else {
-			Users user = Model.registerNewUser(username, userPw);
-			if (user != null) {
-				session.setAttribute("userid", user.getId());
-				session.setAttribute("username", user.getName());
-			} else {
-				session.setAttribute("userid", null);
-				session.setAttribute("msgR", "Пользователь с таким именем уже существует");
-			}
-
-			
+		String carName = request.getParameter("model");
+		int price = Integer.parseInt(request.getParameter("price"));
+		Model.setModelPrice(carName, price);
+		
+		try (PrintWriter out = response.getWriter()) {
+			HttpSession session = request.getSession();
+			response.sendRedirect(session.getServletContext().getContextPath() + "/admin.jsp");
 		}
-		response.sendRedirect(session.getServletContext().getContextPath());
 	}
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
 	 * Handles the HTTP <code>GET</code> method.
 	 *

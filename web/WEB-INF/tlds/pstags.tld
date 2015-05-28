@@ -24,4 +24,12 @@
     <name>header</name>
     <path>/WEB-INF/tags/header.tag</path>
   </tag-file>
+  <tag-file>
+    <name>WalletAmount</name>
+    <path>/WEB-INF/tags/WalletAmount.tag</path>
+  </tag-file>
+  <tag-file>
+    <name>wallletHistory</name>
+    <path>/WEB-INF/tags/walletHistory.tag</path>
+  </tag-file>
 </taglib>

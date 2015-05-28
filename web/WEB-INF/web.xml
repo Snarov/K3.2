@@ -32,6 +32,26 @@
         <servlet-name>PricesJSON</servlet-name>
         <servlet-class>controller.PricesJSON</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PerformOperation</servlet-name>
+        <servlet-class>controller.PerformOperation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeColorPrices</servlet-name>
+        <servlet-class>controller.ChangeColorPrices</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeCarPrice</servlet-name>
+        <servlet-class>controller.ChangeCarPrice</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeModelPrice</servlet-name>
+        <servlet-class>controller.ChangeModelPrice</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MoneyTransfer</servlet-name>
+        <servlet-class>controller.MoneyTransfer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>
         <url-pattern>/Registration</url-pattern>
@@ -47,6 +67,26 @@
     <servlet-mapping>
         <servlet-name>PricesJSON</servlet-name>
         <url-pattern>/pricesJSON</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PerformOperation</servlet-name>
+        <url-pattern>/performOperation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeColorPrices</servlet-name>
+        <url-pattern>/changeColorPrices</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeCarPrice</servlet-name>
+        <url-pattern>/changeCarPrice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeModelPrice</servlet-name>
+        <url-pattern>/changeModelPrice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MoneyTransfer</servlet-name>
+        <url-pattern>/moneyTransfer</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

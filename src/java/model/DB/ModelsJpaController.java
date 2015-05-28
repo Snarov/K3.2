@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import model.DB.exceptions.NonexistentEntityException;
@@ -127,6 +128,26 @@ public class ModelsJpaController implements Serializable {
 			cq.select(em.getCriteriaBuilder().count(rt));
 			Query q = em.createQuery(cq);
 			return ((Long) q.getSingleResult()).intValue();
+		} finally {
+			em.close();
+		}
+	}
+
+	public Models findModelByName(String carName) {
+		EntityManager em = getEntityManager();
+		try {
+			CriteriaBuilder builder = emf.getCriteriaBuilder();
+			CriteriaQuery<Models> criteria = builder.createQuery(Models.class);
+			Root<Models> modelsRoot = criteria.from(Models.class);
+			criteria.select(modelsRoot);
+			criteria.where(builder.equal(modelsRoot.get(Models_.name), carName));
+			List<Models> models = em.createQuery(criteria).getResultList();
+
+			if (models.size() > 0) {
+				return models.get(0);
+			} else {
+				return null;
+			}
 		} finally {
 			em.close();
 		}
