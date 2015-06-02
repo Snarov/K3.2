@@ -85,14 +85,7 @@ $(document).ready(function()
                         $('.TTWForm-container').append('<h2 class="success-message">Success!</h2>');
                     });
  
-                    /************************************************************************************/
-                    /*                                REDIRECTION CODE                                  */
-                    /*         Only uncomment the line below if you want to redirect to another page    */
-                    /*                          when the form has been submitted                        */
-                    /************************************************************************************/
- 
-                    //window.location = 'http://www.example.com/somePage.html';
-                }
+      
                 else validator.invalidate(data.errors);
  
             });
