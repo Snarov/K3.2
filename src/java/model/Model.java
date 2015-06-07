@@ -33,14 +33,14 @@ import org.json.simple.JSONObject;
 public class Model {
 
 	static EntityManagerFactory em;
-	private static UsersJpaController ujpac;
-	private static WalletsJpaController wjpac;
-	private static CarsJpaController cjpac;
-	private static ColorPricesJpaController cpjpac;
-	private static ModelsJpaController mjpac;
-	private static OperationsJpaController ojpac;
+	private static UsersJpaController _ujpac;
+	private static WalletsJpaController _wjpac;
+	private static CarsJpaController _cjpac;
+	private static ColorPricesJpaController _cpjpac;
+	private static ModelsJpaController _mjpac;
+	private static OperationsJpaController _ojpac;
 
-	public static Users checkUser(String username, String pwd) {
+	public static Users CheckUser(String username, String pwd) {
 		Users user = getUjpac().findUserByName(username);
 		byte[] encPwd;
 
@@ -65,14 +65,14 @@ public class Model {
 	/**
 	 * @return the em
 	 */
-	private static EntityManagerFactory getEm() {
+	private static EntityManagerFactory GetEm() {
 		return Persistence.createEntityManagerFactory("PaintServicePU");
 	}
 
 	/**
 	 * @return the ujpac
 	 */
-	private static UsersJpaController getUjpac() {
+	private static UsersJpaController GetUjpac() {
 		if (ujpac == null) {
 			ujpac = new UsersJpaController(getEm());
 		}
@@ -82,14 +82,14 @@ public class Model {
 	/**
 	 * @return the wjpac
 	 */
-	private static WalletsJpaController getWjpac() {
+	private static WalletsJpaController GetWjpac() {
 		if (wjpac == null) {
 			wjpac = new WalletsJpaController(getEm());
 		}
 		return wjpac;
 	}
 
-	private static CarsJpaController getCjpac() {
+	private static CarsJpaController GetCjpac() {
 		if (cjpac == null) {
 			cjpac = new CarsJpaController(getEm());
 		}
@@ -99,7 +99,7 @@ public class Model {
 	/**
 	 * @return the cpjpac
 	 */
-	private static ColorPricesJpaController getCpjpac() {
+	private static ColorPricesJpaController GetCpjpac() {
 		if (cpjpac == null) {
 			cpjpac = new ColorPricesJpaController(getEm());
 		}
@@ -109,7 +109,7 @@ public class Model {
 	/**
 	 * @return the mjpac
 	 */
-	private static ModelsJpaController getMjpac() {
+	private static ModelsJpaController GetMjpac() {
 		if (mjpac == null) {
 			mjpac = new ModelsJpaController(getEm());
 		}
@@ -120,7 +120,7 @@ public class Model {
 	/**
 	 * @return the ojpac
 	 */
-	private static OperationsJpaController getOjpac() {
+	private static OperationsJpaController GetOjpac() {
 		if (ojpac == null) {
 			ojpac = new OperationsJpaController(getEm());
 		}
@@ -133,7 +133,7 @@ public class Model {
 	 * @param userPw
 	 * @return true if registration completed, else if user with that name already exists
 	 */
-	public static Users registerNewUser(String username, String userPw) {
+	public static Users RegisterNewUser(String username, String userPw) {
 		Users newUser = new Users();
 		Wallets wallet = new Wallets();
 
@@ -173,19 +173,19 @@ public class Model {
 		return newUser;
 	}
 
-	public static Wallets getUserWallet(int userid) {
+	public static Wallets GetUserWallet(int userid) {
 		Users user = getUjpac().findUsers(userid);
 		Wallets wallet = getWjpac().findWallets(user.getWallet());
 		return wallet;
 	}
 
-	public static Cars getUserCar(Integer userid) {
+	public static Cars GetUserCar(Integer userid) {
 		Users user = getUjpac().findUsers(userid);
 		Cars car = getCjpac().findCars(user.getCar());
 		return car;
 	}
 
-	public static int[] getColorPrices() {
+	public static int[] GetColorPrices() {
 		List<ColorPrices> colorPrices = getCpjpac().findColorPricesEntities();
 
 		int[] retval = new int[colorPrices.size()];
@@ -197,7 +197,7 @@ public class Model {
 		return retval;
 	}
 
-	public static int[] getModelPrices() {
+	public static int[] GetModelPrices() {
 		List<Models> models = getMjpac().findModelsEntities();
 
 		int[] retval = new int[models.size()];
@@ -209,7 +209,7 @@ public class Model {
 		return retval;
 	}
 
-	public static boolean performOp(JSONObject operation, int userid) {
+	public static boolean PerformOp(JSONObject operation, int userid) {
 		try {
 
 			Users user = getUjpac().findUsers(userid);
@@ -290,14 +290,14 @@ public class Model {
 		return true;
 	}
 
-	public static List<Operations> getOperations(int userid) {
+	public static List<Operations> GetOperations(int userid) {
 		Users user = getUjpac().findUsers(userid);
 
 		return getOjpac().findOperationsByWallet(user.getWallet());
 
 	}
 
-	public static void setColorPrices(int[] cp) {
+	public static void SetColorPrices(int[] cp) {
 		List<ColorPrices> colorPrices = getCpjpac().findColorPricesEntities();
 
 		for (int i = 0; i < colorPrices.size(); i++) {
@@ -310,7 +310,7 @@ public class Model {
 		}
 	}
 
-	public static void setModelPrice(String carName, int price) {
+	public static void SetModelPrice(String carName, int price) {
 		Models model = getMjpac().findModelByName(carName);
 		if (model != null) {
 			try {
@@ -322,7 +322,7 @@ public class Model {
 		}
 	}
 
-	public static boolean moneyTransfer(String username, int amount) {
+	public static boolean MoneyTransfer(String username, int amount) {
 		try {
 			Users user = getUjpac().findUserByName(username);
 			
